@@ -1,15 +1,20 @@
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.time.Month.JANUARY;
+import static java.time.Month.MARCH;
+import static java.util.stream.Collectors.toList;
 
 public class OptionalTutorial {
 
-  class User {
-    String name;
-    LocalDate birthDate;
+  public static class User {
+    public final String name;
+    public final LocalDate birthDate;
 
     public User(String name, LocalDate birthDate) {
       this.name = name;
@@ -27,11 +32,19 @@ public class OptionalTutorial {
       new User("Chris"),
       new User("Christina"),
       new User("Madlene"),
+      new User("John", LocalDate.of(2001, MARCH, 12)),
       new User("Rob"),
       new User("Anna")
   );
 
   public Optional<User> searchUser(String name) {
+    return null;
+  }
+
+  public Map<String, List<LocalDate>> birthdaysByName() {
+//    LinkedHashMap<S/tring, List<User>> collect = users.stream()
+//        .collect(Collectors.groupingBy(user -> user.name, LinkedHashMap::new, toList()));
+//    return collect;
     return null;
   }
 
