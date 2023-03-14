@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,12 +24,18 @@ import java.util.stream.Stream;
 * */
 
 public class FilesTutorial {
-  public static void main(String[] args) throws IOException {
-    try (Stream<Path> files = Files.list(Path.of("/"))) {
-      files.forEach(file -> {
-        boolean directory = file.toFile().isDirectory();
-        System.out.println((directory ? "/" : "") + file.getFileName());
-      });
+  public static void main(String[] args) {
+    String path = "/";
+
+    String[] filesAndDirectories = new File(path).list();
+    if (filesAndDirectories == null) return;
+
+    System.out.println("Contents of " + path);
+
+    for (String fileOrDirectoryName : filesAndDirectories) {
+      File fileOrDirectory = new File(path + fileOrDirectoryName);
+      boolean directory = fileOrDirectory.isDirectory();
+      System.out.println(fileOrDirectory.getName() + " -> " + (directory ? "dir" : "file"));
     }
   }
 }
