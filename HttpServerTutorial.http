@@ -1,0 +1,13 @@
+### Check server status
+GET http://localhost:5555/status
+
+### Start "Guess number" game
+POST http://localhost:5555/start-game
+
+### Guess number
+POST http://localhost:5555/guess
+
+### End "Guess number" game
+POST http://localhost:5555/end-game
+
+###
