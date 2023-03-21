@@ -1,13 +1,24 @@
-### Check server status
+### Check server status - optional
 GET http://localhost:5555/status
 
+
 ### Start "Guess number" game
+# - generates number to guess
+# 400 - if game is already started
 POST http://localhost:5555/start-game
 
-### Guess number
+### Guess number 1..100
+# 400 - if out of range
+# 400 - if not number
+# returns LESS|EQUAL|BIGGER
 POST http://localhost:5555/guess
+Content-Type: application/json
+
+42
 
 ### End "Guess number" game
+# - forgets number to guess
+# 400 - if game already ended
 POST http://localhost:5555/end-game
 
 ###
