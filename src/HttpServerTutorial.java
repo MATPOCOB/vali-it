@@ -17,31 +17,12 @@ public class HttpServerTutorial {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-      switch (exchange.getRequestURI().getPath()) {
-        case "/status" -> {
-          switch (exchange.getRequestMethod()) {
-            case "GET" -> handleStatusRequest(exchange);
-            default -> handleNotFound(exchange);
-          }
-        }
-        case "/start-game" -> {
-          switch (exchange.getRequestMethod()) {
-            case "POST" -> handleStartGameRequest(exchange);
-            default -> handleNotFound(exchange);
-          }
-        }
-        case "/guess" -> {
-          switch (exchange.getRequestMethod()) {
-            case "POST" -> handleGuessRequest(exchange);
-            default -> handleNotFound(exchange);
-          }
-        }
-        case "/end-game" -> {
-          switch (exchange.getRequestMethod()) {
-            case "POST" -> handleEndGameRequest(exchange);
-            default -> handleNotFound(exchange);
-          }
-        }
+      String methodAndPath = exchange.getRequestMethod() + " " + exchange.getRequestURI().getPath();
+      switch (methodAndPath) {
+        case "GET /status" -> handleStatusRequest(exchange);
+        case "POST /start-game" -> handleStartGameRequest(exchange);
+        case "POST /guess" -> handleGuessRequest(exchange);
+        case "POST /end-game" -> handleEndGameRequest(exchange);
         default -> handleNotFound(exchange);
       }
       System.out.println(exchange.getRequestMethod() + " " + exchange.getRequestURI() + " " + exchange.getResponseCode());
