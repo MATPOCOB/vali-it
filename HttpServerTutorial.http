@@ -1,7 +1,6 @@
 ### Check server status - optional
 GET http://localhost:5555/status
 
-
 ### Start "Guess number" game
 # - generates number to guess
 # 400 - if game is already started
@@ -20,5 +19,17 @@ Content-Type: application/json
 # - forgets number to guess
 # 400 - if game already ended
 POST http://localhost:5555/end-game
+
+### Check statistics
+# - returns JSON
+# {
+#   "gamesCount": 4,
+#   "guessCountPerGame": {
+#     "min": 1
+#     "avg": 4.24
+#     "max": 134
+#   }
+# }
+GET http://localhost:5555/stats
 
 ###
