@@ -4,11 +4,22 @@ GET http://localhost:5555/status
 ### Start "Guess number" game
 # - generates number to guess
 # 400 - if game is already started
+# returns session id
+#
+# Session id has to be passed to X-SESSIONID header with
+# all requests that require client to be logged in
+POST http://localhost:5555/login
+
+### Start "Guess number" game
+# - generates number to guess
+# 400 - if game is already started
+# 401 - if not logged in
 POST http://localhost:5555/start-game
 
 ### Guess number 1..100
 # 400 - if out of range
 # 400 - if not number
+# 401 - if not logged in
 # returns LESS|EQUAL|BIGGER
 POST http://localhost:5555/guess
 Content-Type: application/json
@@ -18,18 +29,21 @@ Content-Type: application/json
 ### End "Guess number" game
 # - forgets number to guess
 # 400 - if game already ended
+# 401 - if not logged in
 POST http://localhost:5555/end-game
 
 ### Check statistics
 # - returns JSON
 # {
-#   "gamesCount": 4,
-#   "guessCountPerGame": {
+#   "gameCount": 4,
+#   "wonGameCount": 3,
+#   "guessCountPerWonGames": {
 #     "min": 1
-#     "avg": 4.24
+#     "avg": 47,33
 #     "max": 134
 #   }
 # }
+# 401 - if not logged in
 GET http://localhost:5555/stats
 
 ###
