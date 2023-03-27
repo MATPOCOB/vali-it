@@ -6,7 +6,7 @@ GET http://localhost:5555/status
 # 400 - if game is already started
 # returns session id
 #
-# Session id has to be passed to X-SESSIONID header with
+# Session id has to be passed to X-SESSION-ID header with
 # all requests that require client to be logged in
 POST http://localhost:5555/login
 
