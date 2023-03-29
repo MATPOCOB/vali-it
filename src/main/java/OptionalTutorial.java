@@ -1,14 +1,10 @@
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.time.Month.JANUARY;
 import static java.time.Month.MARCH;
-import static java.util.stream.Collectors.toList;
 
 public class OptionalTutorial {
 

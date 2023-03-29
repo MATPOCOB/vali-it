@@ -1,10 +1,18 @@
-import com.sun.net.httpserver.*;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.time.Instant;
 
+import static java.lang.Math.round;
+
 public class HttpServerTutorial {
+
+  private static Integer number = null;
+
   public static void main(String[] args) throws IOException {
     InetSocketAddress addr = new InetSocketAddress("localhost", 5555);
     HttpServer httpServer = HttpServer.create(addr, 0);
@@ -16,7 +24,26 @@ public class HttpServerTutorial {
   private static class RequestHandler implements HttpHandler {
 
     @Override
-    public void handle(HttpExchange exchange) throws IOException {
+    public void handle(HttpExchange exchange) {
+      try {
+        doHandle(exchange);
+      } catch (Exception e) {
+        e.printStackTrace(System.out);
+        try {
+          exchange.sendResponseHeaders(500, 0);
+        } catch (IOException ignore) {
+        }
+      } finally {
+        try {
+          exchange.sendResponseHeaders(200, 0);
+        } catch (IOException ignore) {
+        }
+        System.out.println(exchange.getRequestMethod() + " " + exchange.getRequestURI() + " -> " + exchange.getResponseCode());
+        exchange.close();
+      }
+    }
+
+    private void doHandle(HttpExchange exchange) throws IOException {
       String methodAndPath = exchange.getRequestMethod() + " " + exchange.getRequestURI().getPath();
       switch (methodAndPath) {
         case "GET /status" -> handleStatusRequest(exchange);
@@ -25,22 +52,24 @@ public class HttpServerTutorial {
         case "POST /end-game" -> handleEndGameRequest(exchange);
         default -> handleNotFound(exchange);
       }
-      System.out.println(exchange.getRequestMethod() + " " + exchange.getRequestURI() + " " + exchange.getResponseCode());
     }
 
     private void handleStartGameRequest(HttpExchange exchange) throws IOException {
-      exchange.sendResponseHeaders(500, 0);
-      exchange.close();
+      if (number != null) {
+        exchange.sendResponseHeaders(400, 0);
+        try (OutputStream responseBody = exchange.getResponseBody()) {
+          responseBody.write("Game already started".getBytes());
+        }
+      } else {
+        number = (int) round(Math.random()*100);
+        exchange.sendResponseHeaders(200, 0);
+      }
     }
 
     private void handleGuessRequest(HttpExchange exchange) throws IOException {
-      exchange.sendResponseHeaders(500, 0);
-      exchange.close();
     }
 
     private void handleEndGameRequest(HttpExchange exchange) throws IOException {
-      exchange.sendResponseHeaders(500, 0);
-      exchange.close();
     }
 
     void handleStatusRequest(HttpExchange exchange) throws IOException {
