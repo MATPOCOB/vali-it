@@ -6,7 +6,7 @@ import java.util.Map;
 
 import static java.time.Month.JANUARY;
 import static java.time.Month.MARCH;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OptionalTutorialTest {
 
