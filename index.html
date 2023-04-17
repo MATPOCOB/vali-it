@@ -1,0 +1,28 @@
+<!--
+  - https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+  - https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guess Number Game</title>
+  <script>
+    alert('Before page loaded: ' + document.getElementById('number'))
+    window.onload = () => {
+      alert('On page loaded: ' + document.getElementById('number'))
+    };
+  </script>
+</head>
+<body>
+  <label for="number">Please enter the number:</label>
+  <script>
+    alert('Before number element loaded: ' + document.getElementById('number'))
+  </script>
+  <input id="number" type="number">
+  <script>
+    alert('After number element loaded: ' + document.getElementById('number'))
+  </script>
+</body>
+</html>
+

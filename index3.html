@@ -1,0 +1,31 @@
+<!--
+  - Page loaded: https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event
+  - Find HTML element: https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById
+  - Click event handler: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
+  - Call backend: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+  - Validation: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guess Number Game</title>
+  <script>
+    window.onload = () => {
+      document.getElementById('submit').addEventListener('click',
+        () => {
+          fetch('http://127.0.0.1:5555/status')
+            .then((response) => response.text())
+            .then((text) => alert(text));
+        }
+      )
+    };
+  </script>
+</head>
+<body>
+  <label for="number">Please enter the number:</label>
+  <input id="number" type="number">
+  <button id="submit">Guess</button>
+</body>
+</html>
+
